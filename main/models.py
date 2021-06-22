@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Skill(models.Model):
     name = models.CharField(max_length=50, unique=True)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, related_name='skills')
@@ -47,7 +48,12 @@ class JobPosting(models.Model):
         unique_together = ('title', 'company',)
 
     def __str__(self):
-        return self.title
+        return f'{self.date} {self.title} at {self.company}' 
+
+# Model manager for Company
+class BigCompaniesManager(models.Manager):
+     def get_queryset(self):
+         return super().get_queryset().filter(size__in =['4', '5'])
 
 class Company(models.Model):
     SIZE = (
@@ -61,8 +67,11 @@ class Company(models.Model):
 
     name = models.CharField(max_length=100)
     country = models.ForeignKey('Country', on_delete=models.SET_NULL, null=True, blank=True, related_name='companies')
-    industry = models.ForeignKey('Industry', on_delete=models.SET_NULL, null=True, blank=True, related_name='companies')
+    industry = models.ManyToManyField('Industry', related_name='companies')
     size = models.CharField(max_length=1, choices=SIZE, default='u')
+
+    objects = models.Manager()
+    big_companies = BigCompaniesManager()
 
     class Meta:
         unique_together = ('name', 'country',)
@@ -88,3 +97,8 @@ class Region(models.Model):
 
     def __str__(self):
         return self.name
+
+# Model manager
+class BigCompaniesManager(models.Manager):
+     def get_queryset(self):
+         return super().get_queryset().filer(size='5')

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+    <div>
+        <h4>List big companies</h4>
+        <div>
+            {{ big_companies }}
+        </div>
+
+        <h4>Use WITH template tag</h4>
+        <div>
+            {% with skills.count as skills_count %}
+            {{ skills_count }} skill{{ skills_count|pluralize }}
+            {% endwith %}
+        </div>
+    </div>    
+</html>
