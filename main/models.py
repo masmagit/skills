@@ -3,7 +3,7 @@ from django.db import models
 
 class Skill(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, related_name='skills')
+    category = models.ForeignKey("Category", on_delete=models.SET_NULL, blank=True, null=True, related_name='skills')
 
     def __str__(self):
         return self.name
@@ -30,15 +30,17 @@ class JobPosting(models.Model):
     REMOTE = (
         ('y', 'Yes'),
         ('p', 'Partial'),
-        ('n', 'Not specified'),
+        ('n', 'No'),
+        ('u', 'Unknown'),
     )
   
     title = models.CharField(max_length=200)
     date = models.DateField()
     company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, related_name='jobposts')
+    city = models.ForeignKey('City', on_delete=models.SET_NULL, blank=True, null=True, related_name='jobposts')
     level = models.CharField(max_length=1, choices=LEVEL, blank=True)
     type= models.CharField(max_length=1, choices=TYPE, blank=True)
-    remote = models.CharField(max_length=1, choices=REMOTE, default='n', blank=True)
+    remote = models.CharField(max_length=1, choices=REMOTE, default='u', blank=True)
     content = models.TextField(blank=True)
     url = models.URLField(blank=True)
     skills = models.ManyToManyField(Skill, related_name='jobposts')
@@ -86,6 +88,13 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+class City(models.Model):
+    name = models.CharField(max_length=80)
+    country = models.ForeignKey('Country', on_delete=models.SET_NULL, null=True, blank=True, related_name='cities')
+
+    def __str__(self):
+        return self.name
+
 class Industry(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -97,8 +106,3 @@ class Region(models.Model):
 
     def __str__(self):
         return self.name
-
-# Model manager
-class BigCompaniesManager(models.Manager):
-     def get_queryset(self):
-         return super().get_queryset().filer(size='5')

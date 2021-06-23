@@ -6,6 +6,13 @@
             {{ big_companies }}
         </div>
 
+        <h4>Working with models (see operations.working_with_models())</h4>
+        <div>
+            {% for k,v in working_with_models.items %}
+            <p>{{ k }}: {{ v }}</p>
+            {% endfor %}
+        </div>
+
         <h4>Use WITH template tag</h4>
         <div>
             {% with skills.count as skills_count %}
