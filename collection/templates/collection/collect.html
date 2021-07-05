@@ -6,10 +6,11 @@
             {{ big_companies }}
         </div>
 
-        <h4>Working with models (see operations.working_with_models())</h4>
+        <h4>Working with models (see collect.working_with_models())</h4>
         <div>
             {% for k,v in working_with_models.items %}
             <p>{{ k }}: {{ v }}</p>
+            {% if forloop.last %}<span>Use template tag forloop..</span>{% endif %}
             {% endfor %}
         </div>
 

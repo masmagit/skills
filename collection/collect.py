@@ -1,4 +1,4 @@
-from .models import Company, JobPosting, Skill
+from main.models import Company, JobPosting, Skill
 
 # Use model manager big_companies for the model Company
 def get_big_companies():  
