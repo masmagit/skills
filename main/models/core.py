@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Skill(models.Model):
     name = models.CharField(max_length=50, unique=True)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, blank=True, null=True, related_name='skills')
@@ -77,32 +76,6 @@ class Company(models.Model):
 
     class Meta:
         unique_together = ('name', 'country',)
-
-    def __str__(self):
-        return self.name
-
-class Country(models.Model):
-    name = models.CharField(max_length=80)
-    region = models.ForeignKey('Region', on_delete=models.SET_NULL, null=True, blank=True, related_name='countries')
-
-    def __str__(self):
-        return self.name
-
-class City(models.Model):
-    name = models.CharField(max_length=80)
-    country = models.ForeignKey('Country', on_delete=models.SET_NULL, null=True, blank=True, related_name='cities')
-
-    def __str__(self):
-        return self.name
-
-class Industry(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.name
-
-class Region(models.Model):
-    name = models.CharField(max_length=80)
 
     def __str__(self):
         return self.name

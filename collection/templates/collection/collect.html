@@ -1,24 +1,33 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
-    <div>
-        <h4>List big companies</h4>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <h4>Use add filter with the variable</h4>
+        <link rel="icon" href="{% static ""|add:favicon %}"/>
+    </head>
+    <body>
         <div>
-            {{ big_companies }}
-        </div>
+            <h4>List big companies</h4>
+            <div>
+                {{ big_companies }}
+            </div>
 
-        <h4>Working with models (see collect.working_with_models())</h4>
-        <div>
-            {% for k,v in working_with_models.items %}
-            <p>{{ k }}: {{ v }}</p>
-            {% if forloop.last %}<span>Use template tag forloop..</span>{% endif %}
-            {% endfor %}
-        </div>
+            <h4>Working with models (see collect.working_with_models())</h4>
+            <div>
+                {% for k,v in working_with_models.items %}
+                <p>{{ k }}: {{ v }}</p>
+                {% if forloop.last %}<span>Use template tag forloop..</span>{% endif %}
+                {% endfor %}
+            </div>
 
-        <h4>Use WITH template tag</h4>
-        <div>
-            {% with skills.count as skills_count %}
-            {{ skills_count }} skill{{ skills_count|pluralize }}
-            {% endwith %}
-        </div>
-    </div>    
+            <h4>Use WITH template tag</h4>
+            <div>
+                {% with skills.count as skills_count %}
+                {{ skills_count }} skill{{ skills_count|pluralize }}
+                {% endwith %}
+            </div>
+        </div> 
+    </body>   
 </html>
